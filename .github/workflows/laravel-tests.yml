@@ -1,0 +1,44 @@
+name: Laravel Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Baixar o repositório
+      - uses: actions/checkout@v3
+
+      # Passo 2: Configurar o PHP (versão 8.0, por exemplo)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extension-csv: mbstring, bcmath, pdo_mysql
+          ini-values: post_max_size=256M, max_execution_time=300
+          coverage: none
+
+      # Passo 3: Instalar dependências com Composer
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # Passo 4: Configurar o .env para testes (pode criar um arquivo .env.testing)
+      - name: Copy .env file
+        run: cp .env.example .env
+
+      # Passo 5: Gerar a chave do aplicativo
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      # Passo 6: Executar as migrations
+      - name: Run Migrations
+        run: php artisan migrate --env=testing --force
+
+      # Passo 7: Executar os testes com PHPUnit
+      - name: Run Tests
+        run: php artisan test
