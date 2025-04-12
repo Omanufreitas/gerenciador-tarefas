@@ -1,66 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gerenciador de Tarefas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Uma aplicação fullstack para gerenciamento de tarefas desenvolvida com **Laravel** no backend e **Vue.js** no frontend.
 
-## About Laravel
+O projeto permite que um usuário se registre, faça login e gerencie suas próprias tarefas (criar, visualizar, atualizar e excluir). Cada tarefa possui título, descrição, data de vencimento e status (pendente, em andamento, concluída). A autenticação da API é feita via Laravel Sanctum.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[Link para o repositório no GitHub](https://github.com/Omanufreitas/gerenciador-tarefas)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Sumário
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [Requisitos](#requisitos)
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Execução](#execução)
+- [Endpoints da API](#endpoints-da-api)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Testes](#testes)
+- [CI/CD e Deploy](#cidcd-e-deploy)
+- [Documentação Adicional](#documentação-adicional)
+- [Considerações Finais](#considerações-finais)
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **PHP 8.x** e **Composer**
+- **Laravel 9.x** (ou superior)
+- **Node.js** e **NPM/Yarn** (para o frontend)
+- **Banco de Dados Relacional** (MySQL, PostgreSQL, etc.)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend
 
-## Laravel Sponsors
+1. **Clone o repositório:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   git clone https://github.com/Omanufreitas/gerenciador-tarefas
+   cd gerenciador-tarefas
 
-### Premium Partners
+2.**Instale as dependências do Laravel:**
+composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3.**Configure o arquivo de ambiente:**
 
-## Contributing
+Copie o arquivo .env.example para .env:
+cp .env.example .env
+Abra o arquivo .env e ajuste as variáveis necessárias, como:
+DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD
+Outras variáveis críticas (ex.: APP_URL, APP_ENV)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4.**Gere a chave da aplicação:**
+php artisan key:generate
 
-## Code of Conduct
+5.**Execute as migrations e seeders para criar e povoar o banco:**
+php artisan migrate --seed
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Frontend
+1.Navegue até a pasta do frontend:
+cd frontend
 
-## Security Vulnerabilities
+2.**Instale as dependências do frontend:**
+npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Configuração
+Autenticação:
+O projeto utiliza Laravel Sanctum para autenticação. As rotas protegidas usam o middleware auth:sanctum.
 
-## License
+Variáveis de Ambiente:
+No arquivo .env do backend, configure adequadamente as informações do banco de dados e outras variáveis necessárias.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Frontend:
+O frontend utiliza Vue.js e Tailwind CSS para a interface. Os comandos de build e start devem ser executados dentro da pasta frontend.
+
+### Execução
+Backend
+Para iniciar o servidor de desenvolvimento do Laravel, na raiz do projeto:
+php artisan serve
+O backend ficará disponível, por exemplo, em http://127.0.0.1:8000.
+
+Frontend
+Com o terminal aberto na pasta frontend, inicie o servidor de desenvolvimento do Vue.js:
+npm run dev
+O frontend será servido conforme a configuração (ex.: http://localhost:3000).
+
+Endpoints da API
+Autenticação
+POST /api/register
+Registra um novo usuário.
+Exemplo de payload:
+{
+  "name": "Nome do Usuário",
+  "email": "email@example.com",
+  "password": "senha123",
+  "password_confirmation": "senha123"
+}
+
+POST /api/login
+Realiza o login e retorna um token de autenticação.
+Exemplo de payload:
+{
+  "email": "email@example.com",
+  "password": "senha123"
+}
+
+POST /api/logout
+Realiza o logout do usuário autenticado, revogando o token.
+Requer o header:
+Authorization: Bearer {token}
+
+Gerenciamento de Tarefas
+Todos os endpoints abaixo requerem autenticação via Sanctum:
+
+GET /api/tarefas
+Lista as tarefas do usuário autenticado.
+Suporta filtros via query string:
+
+status — (pendente, em_andamento, concluida)
+
+data_vencimento — (formato YYYY-MM-DD)
+
+Paginação pelo parâmetro page.
+
+POST /api/tarefas
+Cria uma nova tarefa.
+Exemplo de payload:
+{
+  "titulo": "Nova Tarefa",
+  "descricao": "Descrição da tarefa",
+  "data_vencimento": "2025-12-31",
+  "status": "pendente"
+}
+
+GET /api/tarefas/{id}
+Exibe os detalhes de uma tarefa específica.
+(Somente o proprietário da tarefa pode visualizar.)
+
+PUT /api/tarefas/{id}
+Atualiza os dados de uma tarefa.
+Exemplo de payload (parcial ou completo):
+{
+  "titulo": "Tarefa atualizada",
+  "status": "em_andamento"
+}
+DELETE /api/tarefas/{id}
+Exclui uma tarefa.
+
+Estrutura do Projeto
+Controllers:
+
+AuthController: Gerencia autenticação (registro, login, logout).
+
+TarefaController: Gerencia operações (listagem, criação, atualização, deleção) de tarefas.
+
+Services:
+
+TarefaService: Centraliza a lógica de negócio para operações com tarefas.
+
+Models:
+
+User e Tarefa: Representam as entidades e definem relacionamentos (ex.: um usuário possui muitas tarefas).
+
+Policies:
+
+TarefaPolicy: Garante que um usuário somente possa acessar suas próprias tarefas.
+(Registrada em AuthServiceProvider.)
+
+FormRequests:
+
+StoreTarefaRequest e UpdateTarefaRequest: Validam os dados de entrada para criação e atualização de tarefas.
+
+Migrations, Seeders e Factories:
+
+Migrations: Criam as tabelas do banco (users, tarefas, etc).
+
+Seeders: Populam o banco com dados iniciais (um usuário de teste e tarefas).
+
+Factories: Geram dados aleatórios para usuários e tarefas, facilitando testes e desenvolvimento.
+
+Testes Automatizados:
+
+Testes de feature para os fluxos principais: visualização, atualização, deleção de tarefas e autenticação.
+
+Testes
+Para rodar os testes automatizados do Laravel, na raiz do projeto, execute:
+php artisan test
