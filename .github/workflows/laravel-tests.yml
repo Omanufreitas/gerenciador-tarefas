@@ -14,11 +14,11 @@ jobs:
       # Passo 1: Baixar o repositório
       - uses: actions/checkout@v3
 
-      # Passo 2: Configurar o PHP (versão 8.0, por exemplo)
+      # Passo 2: Configurar o PHP (versão 8.3, por exemplo)
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.3'
           extension-csv: mbstring, bcmath, pdo_mysql
           ini-values: post_max_size=256M, max_execution_time=300
           coverage: none
