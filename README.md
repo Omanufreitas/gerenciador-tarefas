@@ -59,6 +59,12 @@ cd frontend
 2.**Instale as dependências do frontend:**
 npm install
 
+Instale o vue-router (versão 4):
+npm install vue-router@4
+
+Instale o axios:
+npm install axios
+
 Configuração
 Autenticação:
 O projeto utiliza Laravel Sanctum para autenticação. As rotas protegidas usam o middleware auth:sanctum.
