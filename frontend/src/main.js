@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import './style.css'
+import './bootstrap.js'
 
 // IMPORTA OS ÍCONES
 import { PencilIcon, TrashIcon } from '@heroicons/vue/24/solid'

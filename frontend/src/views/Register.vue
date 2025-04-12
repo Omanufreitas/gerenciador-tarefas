@@ -79,3 +79,44 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'Register',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      error: null
+    }
+  },
+  methods: {
+    async handleRegister() {
+      try {
+        // Envia a requisição POST para o endpoint de registro
+        const response = await axios.post('http://127.0.0.1:8000/api/register', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+        })
+        console.log('Registro efetuado:', response.data)
+        // Após registro bem-sucedido, redirecione para a página de login, por exemplo
+        this.$router.push({ name: 'Login' })
+      } catch (error) {
+        console.error('Erro ao registrar usuário:', error)
+        // Caso a API retorne erro com dados, você pode usar:
+        if (error.response && error.response.data) {
+          this.error = error.response.data.message || 'Erro ao registrar usuário.'
+        } else {
+          this.error = 'Erro ao registrar usuário.'
+        }
+      }
+    }
+  }
+}
+</script>
